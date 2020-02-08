@@ -25,7 +25,9 @@ import org.junit.runners.JUnit4;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.number.IsCloseTo.closeTo;
+//import static org.junit.Assert.assertThat;
 
 /**
  * JUnit4 unit tests for the calculator logic. These are local unit tests; no device needed
@@ -53,6 +55,52 @@ public class CalculatorTest {
         assertThat(resultAdd, is(equalTo(2d)));
     }
 
+    @Test
+    public void addTwoNumbersNegative() {
+        double resultAdd = mCalculator.add(-1d, 2d);
+        assertThat(resultAdd, is(equalTo(1d)));
+    }
 
+    @Test
+    public void addTwoNumbersFloats() {
+        double resultAdd = mCalculator.add(1.111f, 1.111d);
+        assertThat(resultAdd, is(closeTo(2.222, 0.01)));
+    }
+
+    @Test
+    public void subTwoNumbers() {
+        double resultSub = mCalculator.sub(1d, 1d);
+        assertThat(resultSub, is(equalTo(0d)));
+    }
+
+    @Test
+    public void subWorksWithNegativeResults() {
+        double resultSub = mCalculator.sub(4d, 5d);
+        assertThat(resultSub, is(equalTo(-1d)));
+    }
+
+    @Test
+    public void mulTwoNumbers() {
+        double resultMul = mCalculator.mul(5d, 4d);
+        assertThat(resultMul, is(equalTo(20d)));
+    }
+
+    @Test
+    public void mulTwoNumbersZero() {
+        double resultMul = mCalculator.mul(0d, 4d);
+        assertThat(resultMul, is(equalTo(0d)));
+    }
+
+    @Test
+    public void divTwoNumbers() {
+        double resultDiv = mCalculator.div(20d, 4d);
+        assertThat(resultDiv, is(equalTo(5d)));
+    }
+
+    @Test
+    public void divTwoNumbersZero() {
+        double resultDiv = mCalculator.div(0d, 10d);
+        assertThat(resultDiv, is(equalTo(0d)));
+    }
 
 }
